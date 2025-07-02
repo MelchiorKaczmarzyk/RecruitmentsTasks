@@ -1,0 +1,113 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+:root {
+    --bg-color: #f3f4f6;
+    --text-color: #374151;
+    --header-bg: #2563eb; 
+    --header-text: #ffffff;
+    --header-text-hover: #bfdbfe; 
+    --aside-bg: #1f2937; 
+    --aside-text: #ffffff; 
+    --aside-hover: #374151; 
+    --main-bg: #ffffff; 
+    --main-text: #111827; 
+    --accent-color: #3b82f6; 
+    --accent-text: #ffffff; 
+    --accent-hover: #1d4ed8; 
+}
+
+body.dark {
+    --bg-color: #1a202c; 
+    --text-color: #e2e8f0; 
+    --header-bg: #2d3748;
+    --header-text: #e2e8f0; 
+    --header-text-hover: #a0aec0;
+    --aside-bg: #1a202c; 
+    --aside-text: #e2e8f0; 
+    --aside-hover: #4a5568; 
+    --main-bg: #2d3748; 
+    --main-text: #e2e8f0; 
+    --accent-color: #63b3ed; 
+    --accent-text: #1a202c; 
+    --accent-hover: #4299e1;
+}
+
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
+    grid-template-rows: auto 1fr; 
+    grid-template-areas:
+        "header header"
+        "aside main";
+    flex-grow: 1; 
+}
+
+header {
+    grid-area: header;
+}
+
+aside {
+    grid-area: aside;
+}
+
+main {
+    grid-area: main;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+@media (max-width: 799px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto 1fr; 
+        grid-template-areas:
+            "header"
+            "main";
+    }
+
+    aside {
+        display: none; 
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100%;
+        z-index: 100; 
+        transform: translateX(-100%); 
+        transition: transform 0.3s ease-in-out; 
+        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    }
+
+    aside.open {
+        display: block; 
+        transform: translateX(0);
+    }
+
+    .hamburger-menu {
+        display: block; 
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 90; 
+    }
+
+    .overlay.active {
+        display: block; 
+    }
+}

@@ -1,0 +1,4 @@
+SELECT p.ProjectName, COUNT(ep.EmployeeID) AS NumberOfEmployees
+FROM Projects p
+LEFT JOIN EmployeeProjects ep ON p.ProjectID = ep.ProjectID
+GROUP BY p.ProjectName;

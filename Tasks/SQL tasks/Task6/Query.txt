@@ -1,0 +1,18 @@
+WITH SredniePensje AS (
+    SELECT 
+        DepartmentID,
+        AVG(Salary) AS SredniaPensja
+    FROM Employees
+    GROUP BY DepartmentID
+)
+
+SELECT 
+    e.EmployeeID,
+    e.FirstName,
+    e.LastName,
+    d.DepartmentName,
+    e.Salary
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+JOIN SredniePensje sp ON e.DepartmentID = sp.DepartmentID
+WHERE e.Salary > sp.SredniaPensja;

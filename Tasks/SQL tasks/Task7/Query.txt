@@ -1,0 +1,25 @@
+WITH Hierarchia AS (
+    SELECT 
+        EmployeeID,
+        FirstName,
+        LastName,
+        ManagerID,
+        1 AS Poziom
+    FROM Employees
+    WHERE ManagerID = 1
+
+    UNION ALL
+
+    SELECT 
+        e.EmployeeID,
+        e.FirstName,
+        e.LastName,
+        e.ManagerID,
+        h.Poziom + 1
+    FROM Employees e
+    INNER JOIN Hierarchia h ON e.ManagerID = h.EmployeeID
+)
+
+SELECT *
+FROM Hierarchia
+ORDER BY Poziom, ManagerID, EmployeeID;

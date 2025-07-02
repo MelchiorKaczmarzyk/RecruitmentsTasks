@@ -1,0 +1,130 @@
+﻿@page "/EditNote/{NoteId:int}"
+@rendermode InteractiveServer
+@using BlazorNotes.Data.Models
+@using BlazorNotes.Services
+@inject NoteService notesService
+@inject NavigationManager navigationManager
+
+<PageTitle>Edit Note</PageTitle>
+
+<h1>Edit Note</h1>
+
+@if (note == null)
+{
+    <p><em>Loading note...</em></p>
+}
+else
+{
+    <div class="edit-note-form">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input id="title" class="form-control" @bind="note.Title" />
+        </div>
+        <div class="form-group">
+            <label for="text">Text:</label>
+            <textarea id="text" class="form-control" @bind="note.Text"></textarea>
+        </div>
+        <button class="btn btn-primary mt-3" @onclick="UpdateNote">Save Changes</button>
+        <button class="btn btn-secondary mt-3 ms-2" @onclick="Cancel">Cancel</button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int NoteId { get; set; }
+
+    private Note note;
+
+    protected override void OnInitialized()
+    {
+        note = notesService.GetNoteById(NoteId);
+        if (note == null)
+        {
+            // Handle case where note is not found, e.g., redirect to notes list
+            navigationManager.NavigateTo("/YourNotes");
+        }
+    }
+
+    private void UpdateNote()
+    {
+        notesService.UpdateNote(note);
+        navigationManager.NavigateTo("/YourNotes");
+    }
+
+    private void Cancel()
+    {
+        navigationManager.NavigateTo("/YourNotes");
+    }
+}
+
+<style>
+    .edit-note-form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .btn {
+        padding: 0.75rem 1.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: 1px solid #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .mt-3 {
+        margin-top: 1rem !important;
+    }
+
+    .ms-2 {
+        margin-left: 0.5rem !important;
+    }
+</style>

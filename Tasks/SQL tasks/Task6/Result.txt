@@ -1,0 +1,3 @@
+1	Anna	Nowak	HR	250000.00
+2	Piotr	Zielinski	IT	150000.00
+5	Agnieszka	Kowalczyk	Sales	140000.00

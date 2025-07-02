@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 font-sans">
+
+    <div class="carousel-container w-full max-w-4xl p-4">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Automatic Image Carousel</h1>
+
+        <div class="carousel relative w-full overflow-hidden rounded-lg shadow-xl" style="height: 400px;">
+            <img src="https://placehold.co/1000x400/FF5733/FFFFFF?text=Image+1" alt="Carousel Image 1" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+            <img src="https://placehold.co/1000x400/33FF57/FFFFFF?text=Image+2" alt="Carousel Image 2" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+            <img src="https://placehold.co/1000x400/3357FF/FFFFFF?text=Image+3" alt="Carousel Image 3" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+            <img src="https://placehold.co/1000x400/FF33A1/FFFFFF?text=Image+4" alt="Carousel Image 4" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg">
+        </div>
+
+        <p class="text-center text-gray-600 mt-8">Images will automatically fade in and out every 4 seconds.</p>
+    </div>
+
+</body>
+</html>

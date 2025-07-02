@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility & Optimization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <a href="#main-content" class="skip-link sr-only focus:not-sr-only">Skip to main content</a>
+
+    <header class="bg-blue-600 text-white p-4 flex items-center justify-between shadow-md">
+        <h1 class="text-2xl font-bold">Website Header</h1>
+        <form action="#" method="get" class="flex items-center space-x-2">
+            <label for="search-field" class="sr-only">Search</label>
+            <input type="search" id="search-field" name="q" placeholder="Search..."
+                   class="p-2 rounded-md bg-white text-gray-800 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300">
+            <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300">
+                Search
+            </button>
+        </form>
+    </header>
+
+    <main id="main-content" class="flex-grow p-8">
+        <h2 class="text-3xl font-bold mb-6">Main Content Area</h2>
+        <p class="mb-4">Try navigating with the Tab key. You'll see the "Skip to main content" link appear when it receives focus. Also, observe the search field in the header: it will have a distinct border when focused, thanks to `focus-visible`.</p>
+
+        <section class="mt-8 p-6 bg-white rounded-lg shadow-md">
+            <h3 class="text-2xl font-semibold mb-4">More Content</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="mt-4">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 text-center mt-auto">
+        <p>&copy; 2025 Accessibility Demo. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

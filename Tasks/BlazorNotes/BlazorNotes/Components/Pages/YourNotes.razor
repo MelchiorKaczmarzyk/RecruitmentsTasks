@@ -1,0 +1,125 @@
+﻿@page "/YourNotes"
+@rendermode InteractiveServer
+@using BlazorNotes.Data.Models
+@using BlazorNotes.Services
+@inject NoteService notesService
+@inject NavigationManager navigationManager;
+
+<PageTitle>Your Notes</PageTitle>
+
+<h1>Your notes:</h1>
+
+@if (notes == null || !notes.Any())
+{
+    <p><em>No notes found.</em></p>
+}
+else
+{
+    <div class="notes-container">
+        @foreach (var currentNote in notes)
+        {
+            <div class="note-card">
+                <h3>@currentNote.Title</h3>
+                <p>@currentNote.Text</p>
+                <div class="note-actions">
+                    <button class="btn btn-primary edit-button" @onclick="() => NavigateToEdit(currentNote.Id)">Edit</button>
+                    <button class="btn btn-danger delete-button" @onclick="() => DeleteNote(currentNote.Id)">Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    public List<Note> notes = new List<Note>();
+
+    protected override void OnInitialized()
+    {
+        notes = notesService.GetAll();
+    }
+
+    private void DeleteNote(int noteIdToDelete)
+    {
+        notesService.DeleteNote(noteIdToDelete);
+        notes.RemoveAll(n => n.Id == noteIdToDelete);
+        StateHasChanged();
+    }
+
+    private void NavigateToEdit(int noteIdToEdit)
+    {
+        navigationManager.NavigateTo($"/EditNote/{noteIdToEdit}");
+    }
+}
+
+<style>
+    .my-4 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .notes-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .note-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .note-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .note-card p {
+            margin-bottom: 1rem;
+            color: #555;
+            flex-grow: 1;
+        }
+
+    .note-actions {
+        display: flex;
+        justify-content: flex-end; /* Aligns buttons to the right */
+        gap: 0.5rem; /* Space between buttons */
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: 1px solid #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+</style>

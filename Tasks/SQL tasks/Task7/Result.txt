@@ -1,0 +1,9 @@
+2	Piotr	Zielinski	1	1
+5	Agnieszka	Kowalczyk	1	1
+7	Katarzyna	Dabrowska	1	1
+3	Marta	Wisniewska	2	2
+4	Tomasz	Wójcik	2	2
+10	Dorota	Jankowska	2	2
+6	Michal	Lewandowski	5	2
+9	Lukasz	Kozlowski	5	2
+8	Pawel	Kaminski	7	2

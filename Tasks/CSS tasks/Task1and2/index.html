@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Responsive Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[var(--bg-color)] text-[var(--text-color)]">
+
+    <div class="dashboard-grid">
+        <header class="bg-[var(--header-bg)] text-[var(--header-text)] p-4 flex items-center justify-between rounded-b-lg shadow-md">
+            <div class="flex items-center">
+                <button id="hamburgerButton" class="hamburger-menu p-2 rounded-md hover:bg-[var(--accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]">
+                    <div class="w-6 h-0.5 bg-[var(--header-text)] mb-1"></div>
+                    <div class="w-6 h-0.5 bg-[var(--header-text)] mb-1"></div>
+                    <div class="w-6 h-0.5 bg-[var(--header-text)]"></div>
+                </button>
+                <h1 class="text-2xl font-bold ml-4">Dashboard</h1>
+            </div>
+            <nav class="flex items-center space-x-4">
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="hover:text-[var(--header-text-hover)]">Home</a></li>
+                    <li><a href="#" class="hover:text-[var(--header-text-hover)]">Profile</a></li>
+                    <li><a href="#" class="hover:text-[var(--header-text-hover)]">Settings</a></li>
+                </ul>
+                <button id="themeToggleButton" class="p-2 rounded-md bg-[var(--accent-color)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] transition-colors duration-300">
+                    Switch to Dark Mode
+                </button>
+            </nav>
+        </header>
+
+        <aside id="sidePanel" class="bg-[var(--aside-bg)] text-[var(--aside-text)] p-6 rounded-r-lg shadow-lg">
+            <h2 class="text-xl font-semibold mb-6">Navigation</h2>
+            <nav>
+                <ul class="space-y-4">
+                    <li><a href="#" class="block py-2 px-4 rounded-md hover:bg-[var(--aside-hover)] transition duration-200">Dashboard Overview</a></li>
+                    <li><a href="#" class="block py-2 px-4 rounded-md hover:bg-[var(--aside-hover)] transition duration-200">Reports</a></li>
+                    <li><a href="#" class="block py-2 px-4 rounded-md hover:bg-[var(--aside-hover)] transition duration-200">Analytics</a></li>
+                    <li><a href="#" class="block py-2 px-4 rounded-md hover:bg-[var(--aside-hover)] transition duration-200">Users</a></li>
+                    <li><a href="#" class="block py-2 px-4 rounded-md hover:bg-[var(--aside-hover)] transition duration-200">Tasks</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="p-6 bg-[var(--main-bg)] text-[var(--main-text)] rounded-lg shadow-md m-4">
+            <h2 class="text-3xl font-bold mb-6">Main Content Section</h2>
+            <p>This is the main content area of your dashboard. It will display various information and features.</p>
+            <p class="mt-4">The layout adapts responsively based on the screen width, with the side panel hiding under a hamburger menu on narrower screens.</p>
+        </main>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        const hamburgerButton = document.getElementById('hamburgerButton');
+        const sidePanel = document.getElementById('sidePanel');
+        const overlay = document.getElementById('overlay');
+        const themeToggleButton = document.getElementById('themeToggleButton');
+        const body = document.body;
+
+        function toggleMenu() {
+            sidePanel.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidePanel.classList.contains('open') ? 'hidden' : '';
+        }
+
+        hamburgerButton.addEventListener('click', toggleMenu);
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 800 && sidePanel.classList.contains('open')) {
+                toggleMenu();
+            }
+        });
+
+        function setTheme(isDarkMode) {
+            if (isDarkMode) {
+                body.classList.add('dark');
+                themeToggleButton.textContent = 'Switch to Light Mode';
+            } else {
+                body.classList.remove('dark');
+                themeToggleButton.textContent = 'Switch to Dark Mode';
+            }
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                setTheme(true);
+            } else {
+                setTheme(false); 
+            }
+        });
+
+        themeToggleButton.addEventListener('click', () => {
+            setTheme(!body.classList.contains('dark')); 
+        });
+    </script>
+</body>
+</html>
